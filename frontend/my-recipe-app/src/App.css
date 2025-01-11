@@ -15,10 +15,11 @@
 .cardsSection{
   width: 60%;
   display: flex;
-  align-items: start;
-  justify-content: start;
+  flex-wrap: wrap; 
+  gap: 10px; 
   height: calc(100vh - 100px);
   padding: 30px;
+  align-content: flex-start;
 }
 
 .description{

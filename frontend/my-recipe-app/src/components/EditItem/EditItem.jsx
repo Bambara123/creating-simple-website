@@ -14,18 +14,32 @@ import {
   VStack,
   ModalFooter,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import { createRecipe } from '../../api/recipes'
+import { createRecipe, updateRecipe } from '../../api/recipes'
 
-export default function EditItem({ isOpen, onClose }) {
+export default function EditItem({ isOpen, onClose, currentRecipe }) {
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    imageLink: '',
-    ingredients: ''
-  });
+  console.log(currentRecipe);
+  const [formData, setFormData] = useState({});
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  useEffect(() => {
+    if (currentRecipe) {
+      setFormData({
+        title: currentRecipe.title || '',
+        description: currentRecipe.description || '',
+        ingredients: Array.isArray(currentRecipe.ingredients)
+          ? currentRecipe.ingredients.join(', ')
+          : '',
+        imageLink: currentRecipe.imageLink || ''
+      });
+      setIsEditMode(true);
+    }
+
+  }, [currentRecipe]);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,12 +49,31 @@ export default function EditItem({ isOpen, onClose }) {
     }));
   };
 
+  const convertToList = (commaSeparatedString) => {
+    if (!commaSeparatedString) return [];
+
+    return commaSeparatedString
+      .split(',')
+      .map(item => item.trim())
+      .filter(item => item.length > 0);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    createRecipe(formData);
+    formData.ingredients = convertToList(formData.ingredients);
+    if (isEditMode) {
+      updateRecipe(currentRecipe.id, formData);
+    } else {
+      createRecipe(formData);
+    }
 
-    // Handle form submission logic here
+    setFormData({
+      title:  '',
+      description: '',
+      ingredients: [],
+      imageLink:  ''
+    });
+
     onClose();
   };
 
@@ -48,7 +81,7 @@ export default function EditItem({ isOpen, onClose }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Recipe</ModalHeader>
+        <ModalHeader>{isEditMode ? 'Edit Recipe' : 'Add New Recipe'}</ModalHeader>
         <ModalCloseButton />
         <form onSubmit={handleSubmit}>
           <ModalBody>
@@ -57,7 +90,7 @@ export default function EditItem({ isOpen, onClose }) {
                 <FormLabel>Title</FormLabel>
                 <Input
                   name="title"
-                  value={formData.title}
+                  value={formData.title ? formData.title : ''}
                   onChange={handleChange}
                   placeholder="Recipe title"
                 />
@@ -67,7 +100,7 @@ export default function EditItem({ isOpen, onClose }) {
                 <FormLabel>Description</FormLabel>
                 <Textarea
                   name="description"
-                  value={formData.description}
+                  value={formData.description ? formData.description : ''}
                   onChange={handleChange}
                   placeholder="Recipe description"
                 />
@@ -77,7 +110,7 @@ export default function EditItem({ isOpen, onClose }) {
                 <FormLabel>Image Link</FormLabel>
                 <Input
                   name="imageLink"
-                  value={formData.imageLink}
+                  value={formData.imageLink ? formData.imageLink : ''}
                   onChange={handleChange}
                   placeholder="Recipe image link"
                 />

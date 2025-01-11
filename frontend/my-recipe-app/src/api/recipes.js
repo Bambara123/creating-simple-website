@@ -1,4 +1,4 @@
-const API_URL = 'https://ca01ffb0ccb82fdd097d.free.beeceptor.com/api/recipes/'; // Base URL for the recipes API
+const API_URL = 'http://localhost:3004/recipes'; 
 
 // Fetch all recipes
 export async function fetchRecipes() {

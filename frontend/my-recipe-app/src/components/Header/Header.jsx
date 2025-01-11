@@ -37,6 +37,6 @@ const styles = {
   header: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#333', // Dark gray text
+    color: '#333',
   },
 };

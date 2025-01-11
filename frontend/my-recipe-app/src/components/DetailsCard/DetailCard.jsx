@@ -1,7 +1,18 @@
 import React from 'react'
 import { Card, CardBody, Image, Stack, Heading, Text, Divider, CardFooter, ButtonGroup, Button, HStack, Tag } from '@chakra-ui/react'
+import { deleteRecipe } from '../../api/recipes';
+import EditItem from '../EditItem/EditItem';
+import { useDisclosure } from '@chakra-ui/react';
 
-export default function DetailCard({ title, description, bulletPoints }) {
+
+export default function DetailCard({currentRecipe}) {
+
+     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const handleDelete = () => {
+        deleteRecipe(currentRecipe.id);
+    };
+
     return (
         <div><Card >
             <CardBody>
@@ -11,28 +22,29 @@ export default function DetailCard({ title, description, bulletPoints }) {
                     borderRadius='lg'
                 />
                 <Stack mt='6' spacing='3'>
-                    <Heading size='md'>{title}</Heading>
+                    <Heading size='md'>{currentRecipe.title}</Heading>
                     <Text>
-                        This sofa is perfect for modern tropical spaces, baroque inspired
-                        spaces, earthy toned spaces and for people who love a chic design with a
-                        sprinkle of vintage design.
+                       {currentRecipe.description}
                     </Text>
                 </Stack>
-                <HStack>
-                    <Tag>Sample Tag</Tag>
+                <HStack mt={3}>
+                    {currentRecipe.ingredients.map((ingredient) => (<Tag>{ingredient}</Tag>))}
+                    
                 </HStack>
             </CardBody>
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='green'>
+                    <Button variant='solid' colorScheme='green' onClick={onOpen}>
                         Edit
                     </Button>
-                    <Button variant='solid' colorScheme='red'>
+                    <Button variant='solid' colorScheme='red' onClick={handleDelete}>
                         Delete
                     </Button>
                 </ButtonGroup>
             </CardFooter>
-        </Card></div>
+        </Card>
+         <EditItem isOpen={isOpen} onClose={onClose} currentRecipe={currentRecipe}/>
+        </div>
     )
 }

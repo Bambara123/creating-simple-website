@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import RecipeCard from './components/RecipeCard/RecipeCard';
 import Header from './components/Header/Header';
 import DetailCard from './components/DetailsCard/DetailCard';
-import { image, title } from 'framer-motion/client';
-import { fetchRecipes, fetchRecipeById, createRecipe } from './api/recipes';
+import { fetchRecipes, fetchRecipeById } from './api/recipes';
 
 
 function App() {
@@ -22,9 +21,23 @@ function App() {
 
 
   useEffect(() => {
-    const allRecipes = fetchRecipes();
+    const getRecipes = async () => {
+      const allRecipes = await fetchRecipes();
+      console.log(allRecipes);
+      setAllRecipes(allRecipes);
+      setSelectedRecipe(allRecipes[0]);
+    }
 
-  }, [allRecipes]);
+    getRecipes();
+  }, []);
+
+  const onCardClick = (id) => {
+    console.log("sdeass");
+    fetchRecipeById(id).then((recipe) => {
+      setSelectedRecipe(recipe);
+    });
+
+  };
 
   return (
     <ChakraProvider>
@@ -34,10 +47,11 @@ function App() {
         </div>
         <div className='body'>
           <div className='cardsSection'>
-            <RecipeCard title={'Sushi Biiriyani'} subtitle={'This is the favourite sish, The current syntax is invalid - youre trying to immediately destructure parameters without properly declaring the component function'}></RecipeCard>
+            {allRecipes.map((recipe) => (  <RecipeCard currentRecipe={recipe}  onCardClick={onCardClick}/>))}
+          
           </div>
           <div className='description'>
-            <DetailCard></DetailCard>
+            <DetailCard currentRecipe={selectedRecipe} />
           </div>
         </div>
 
