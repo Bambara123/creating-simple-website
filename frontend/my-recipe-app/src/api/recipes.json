@@ -1,12 +1,41 @@
 [
     {
         "id": "5fc8a982-9640-4fcb-8f83-f35c2e94f4bf",
-        "title": "sdf",
-        "description": "dsf",
-        "imageLink": "dsf",
+        "title": "Spaghetti Carbonara",
+        "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
+        "imageLink": "https://leitesculinaria.com/wp-content/uploads/2024/04/spaghetti-carbonara-1200.jpg",
         "ingredients": [
-            "sds",
-            "asa"
+            "Spaghetti",
+            "Egg yolks",
+            "Parmesan cheese",
+            "Pancetta",
+            "Black pepper"
+        ]
+    },
+    {
+        "id": "9bdbf5f1-7c23-4c8c-bf8b-56e5c43d78ef",
+        "title": "Chicken Tikka Masala",
+        "description": "A flavorful Indian curry made with marinated chicken pieces cooked in a creamy tomato sauce.",
+        "imageLink": "https://www.skinnytaste.com/wp-content/uploads/2011/06/Chicken-Tikka-Masala-15-500x500.jpg",
+        "ingredients": [
+            "Chicken",
+            "Yogurt",
+            "Tomato puree",
+            "Cream",
+            "Garam masala"
+        ]
+    },
+    {
+        "id": "a61d6b57-63e8-4c19-bb14-d8e6bb1ae37a",
+        "title": "Beef Tacos",
+        "description": "Mexican tacos filled with seasoned ground beef, fresh vegetables, and a variety of toppings.",
+        "imageLink": "https://danosseasoning.com/wp-content/uploads/2022/03/Beef-Tacos-1024x767.jpg",
+        "ingredients": [
+            "Ground beef",
+            "Taco seasoning",
+            "Tortillas",
+            "Lettuce",
+            "Cheddar cheese"
         ]
     }
 ]

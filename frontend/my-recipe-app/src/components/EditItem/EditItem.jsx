@@ -20,7 +20,6 @@ import { createRecipe, updateRecipe } from '../../api/recipes'
 
 export default function EditItem({ isOpen, onClose, currentRecipe }) {
 
-  console.log(currentRecipe);
   const [formData, setFormData] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
 
