@@ -29,7 +29,7 @@ export default function DetailCard({currentRecipe}) {
                     </Text>
                 </Stack>
                 <HStack mt={3}>
-                    {currentRecipe.ingredients.map((ingredient) => (<Tag>{ingredient}</Tag>))}
+                    {currentRecipe.ingredients.map((ingredient, index) => (<Tag key={index}>{ingredient}</Tag>))}
                     
                 </HStack>
             </CardBody>

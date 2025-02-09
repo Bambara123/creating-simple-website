@@ -45,7 +45,7 @@ function App() {
         </div>
         <div className='body'>
           <div className='cardsSection'>
-            {allRecipes.map((recipe) => (  <RecipeCard currentRecipe={recipe}  onCardClick={onCardClick}/>))}
+            {allRecipes.map((recipe, index) => (  <RecipeCard key={index} currentRecipe={recipe}  onCardClick={onCardClick}/>))}
           </div>
           <div className='description'>
             <DetailCard currentRecipe={selectedRecipe} />
